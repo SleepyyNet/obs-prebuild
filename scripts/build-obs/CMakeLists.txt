@@ -53,9 +53,25 @@ if (WIN32)
         IMPORTED_LOCATION_RELWITHDEBINFO "${OBS_STUDIO_BUILD64}/libobs/RelWithDebInfo/obs.dll"
         IMPORTED_IMPLIB_RELWITHDEBINFO "${OBS_STUDIO_BUILD64}/libobs/RelWithDebInfo/obs.lib"
     )
+
     install(
-        FILES "${OBS_STUDIO_BUILD64}/libobs/Debug/obs.pdb"
+        FILES 
+            "${OBS_STUDIO_BUILD64}/libobs/Debug/obs.pdb"
+            "${OBS_STUDIO_BUILD64}/libobs/Debug/obs.lib"
         CONFIGURATIONS Debug
+        DESTINATION "${OBS_OUT_DIR}")
+
+    install(
+        FILES 
+            "${OBS_STUDIO_BUILD64}/libobs/Release/obs.lib"
+        CONFIGURATIONS Release
+        DESTINATION "${OBS_OUT_DIR}")
+
+    install(
+        FILES 
+            "${OBS_STUDIO_BUILD64}/libobs/RelWithDebInfo/obs.pdb"
+            "${OBS_STUDIO_BUILD64}/libobs/RelWithDebInfo/obs.lib"
+        CONFIGURATIONS RelWithDebInfo
         DESTINATION "${OBS_OUT_DIR}")
 elseif()
     message(FATAL_ERROR "Only Windows supported for right now")
@@ -97,11 +113,18 @@ function(copy_obs_plugin PLUGIN_NAME)
         DIRECTORY "${OBS_STUDIO_PATH}/plugins/${PLUGIN_NAME}/data"
         DESTINATION "${OBS_OUT_DIR}/data/obs-plugins/${PLUGIN_NAME}"
     )
+
     install(
         FILES
         "${OBS_STUDIO_BUILD64}/plugins/${PLUGIN_NAME}/${OBS_BUILD_TYPE}/${PLUGIN_NAME}.dll"
-        "${OBS_STUDIO_BUILD64}/plugins/${PLUGIN_NAME}/${OBS_BUILD_TYPE}/${PLUGIN_NAME}.pdb"
         DESTINATION "${OBS_OUT_DIR}/obs-plugins"
+    )
+
+    install(
+        FILES
+        "${OBS_STUDIO_BUILD64}/plugins/${PLUGIN_NAME}/${OBS_BUILD_TYPE}/${PLUGIN_NAME}.dll"
+        DESTINATION "${OBS_OUT_DIR}/obs-plugins"
+        OPTIONAL
     )
 endfunction()
 
@@ -127,8 +150,3 @@ copy_obs_plugin("win-capture")
 copy_obs_plugin("win-dshow")
 copy_obs_plugin("win-mf")
 copy_obs_plugin("win-wasapi")
-
-install(
-    FILES ${MISC_FILES}
-    DESTINATION "${OBS_OUT_DIR}"
-)
