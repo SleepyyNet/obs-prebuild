@@ -48,3 +48,4 @@ bin/obs-plugins/obs-outputs.pdb filter=lfs diff=lfs merge=lfs -text
 bin/obs-plugins/win-wasapi.pdb filter=lfs diff=lfs merge=lfs -text
 bin/obs-plugins/obs-x264.dll filter=lfs diff=lfs merge=lfs -text
 bin/obs-plugins/win-mf.pdb filter=lfs diff=lfs merge=lfs -text
+bin/obs.lib filter=lfs diff=lfs merge=lfs -text
