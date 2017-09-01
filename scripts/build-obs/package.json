@@ -5,9 +5,8 @@
     "main": "./index.js",
     "types": "./index.d.ts",
     "scripts": {
-      "build:install": "cmake . && cmake --build . --target install --config Release",
       "build:obs": "node index.js",
-      "install": "tsc index.ts && npm run build:obs && npm run build:install"
+      "install": "tsc index.ts && npm run build:obs"
     },
     "author": "Zachary Lund <zachary.lund@streamlabs.com>",
     "license": "GPL-2.0",

@@ -14,28 +14,63 @@ import * as os from 'os';
    That's it!
  */
 
+const buildPath = path.join(__dirname, 'build');
 const obsPath = path.join(__dirname, 'obs-studio');
-const obsDepsZipPath = path.join(__dirname, `dependencies2015.zip`);
-const obsDepsPath = path.join(__dirname, `dependencies2015`);
-const obsDepsPath64 = path.join(`${obsDepsPath}`, `win64`);
-const obsBuild64 = path.join(__dirname, `obs-build64`);
+const obsDepsZipPath = path.join(buildPath, `dependencies2015.zip`);
+const obsDepsPath = path.join(buildPath, `dependencies2015`);
+const obsDepsPath64 = path.join(obsDepsPath, `win64`);
+const obsBuild64 = path.join(buildPath, `obs-build64`);
 
-let configType = shell.env['npm_config_cmake_OBS_BUILD_TYPE'] || 'Release';
+let configType = shell.env['npm_config_OBS_BUILD_TYPE'] || 'Release';
 let obsGenerator = shell.env['npm_config_OSN_GENERATOR'];
 
-function finishBuild(error: any, stdout: string, stderr: string) {
+function finishInstall(error: any, stdout: string, stderr: string) {
     if (error) {
-        console.log(`Failed to execute cmake: ${error}`);
+        console.log(`Failed to install files: ${error}`);
         console.log(`${stdout}`);
         console.log(`${stderr}`);
         process.exit(1);
     }
 }
 
+function obsInstall() {
+    let cmd = `cmake --build \"${buildPath}\" --config ${configType} --target install`;
+    console.log(cmd);
+    shell.exec(cmd, { async: true, silent: true}, finishInstall);
+}
+
+function finishInstallConfigure(error: any, stdout: string, stderr: string) {
+    if (error) {
+        console.log(`Failed to install files: ${error}`);
+        console.log(`${stdout}`);
+        console.log(`${stderr}`);
+        process.exit(1);
+    }
+
+    obsInstall();
+}
+
+function obsInstallConfigure() {
+    let cmd = `cmake "${__dirname}" -DOBS_BUILD_TYPE="${configType}" -DOBS_STUDIO_BUILD64="${obsBuild64}" -DOBS_STUDIO_DEPS64="${obsDepsPath64}"`;
+    console.log(cmd);
+    shell.exec(cmd, { async: true, silent: true}, finishInstallConfigure);
+}
+
+function finishBuild(error: any, stdout: string, stderr: string) {
+    if (error) {
+        console.log(`Failed to build obs: ${error}`);
+        console.log(`${stdout}`);
+        console.log(`${stderr}`);
+        process.exit(1);
+    }
+
+    obsInstallConfigure();
+}
+
 function obsBuild() {
-    let buildCmd = `cmake --build \"${obsBuild64}\" --config ${configType}`;
-    console.log(buildCmd);
-    shell.exec(buildCmd, { async: true, silent: true}, finishBuild);
+    let cmd = `cmake --build \"${obsBuild64}\" --config ${configType}`;
+    console.log(cmd);
+    shell.exec(cmd, { async: true, silent: true}, finishBuild);
 }
 
 function finishConfigure(error: any, stdout: string, stderr: string) {
@@ -51,7 +86,6 @@ function finishConfigure(error: any, stdout: string, stderr: string) {
 
 /* Just assume cmake is available in $PATH */
 function obsConfigure() {
-
     let generator: string;
 
     if (obsGenerator)
@@ -63,11 +97,11 @@ function obsConfigure() {
         process.exit(1);
     }
 
-    const configCmd = `cmake ${generator} -DENABLE_UI=false -DDepsPath="${obsDepsPath64}" -H"${obsPath}" -B"${obsBuild64}"`;
+    const cmd = `cmake ${generator} -DENABLE_UI=false -DDepsPath="${obsDepsPath64}" -H"${obsPath}" -B"${obsBuild64}"`;
 
-    console.log(configCmd);
+    console.log(cmd);
 
-    shell.exec(configCmd, { async: true, silent: true }, finishConfigure);
+    shell.exec(cmd, { async: true, silent: true }, finishConfigure);
 }
 
 function unpackObsDeps() {
@@ -109,4 +143,6 @@ function downloadObsDeps(missing: any) {
     });
 }
 
+shell.mkdir(buildPath);
+shell.cd(buildPath);
 fs.access(obsDepsZipPath, downloadObsDeps);
