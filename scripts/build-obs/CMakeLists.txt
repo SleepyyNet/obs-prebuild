@@ -122,7 +122,7 @@ function(copy_obs_plugin PLUGIN_NAME)
 
     install(
         FILES
-        "${OBS_STUDIO_BUILD64}/plugins/${PLUGIN_NAME}/${OBS_BUILD_TYPE}/${PLUGIN_NAME}.dll"
+        "${OBS_STUDIO_BUILD64}/plugins/${PLUGIN_NAME}/${OBS_BUILD_TYPE}/${PLUGIN_NAME}.pdb"
         DESTINATION "${OBS_OUT_DIR}/obs-plugins"
         OPTIONAL
     )
