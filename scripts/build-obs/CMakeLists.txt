@@ -8,7 +8,7 @@ set(
 )
 
 set(
-    OBS_BUILD_TYPE "Release"
+    OBS_BUILD_TYPE "RelWithDebInfo"
     CACHE STRING "Configuration of OBS binaries to copy"
 )
 

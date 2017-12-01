@@ -21,7 +21,7 @@ const obsDepsPath = path.join(buildPath, `dependencies2015`);
 const obsDepsPath64 = path.join(obsDepsPath, `win64`);
 const obsBuild64 = path.join(buildPath, `obs-build64`);
 
-let configType = shell.env['npm_config_OBS_BUILD_TYPE'] || 'Release';
+let configType = shell.env['npm_config_OBS_BUILD_TYPE'] || 'RelWithDebInfo';
 let obsGenerator = shell.env['npm_config_OSN_GENERATOR'];
 
 function finishInstall(error: any, stdout: string, stderr: string) {
