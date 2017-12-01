@@ -34,6 +34,10 @@
                     "url": "rtmp://live-ams.twitch.tv/app"
                 },
                 {
+                    "name": "EU: Berlin, DE",
+                    "url": "rtmp://live-ber.twitch.tv/app"
+                },
+                {
                     "name": "EU: Frankfurt, DE",
                     "url": "rtmp://live-fra.twitch.tv/app"
                 },
@@ -48,6 +52,10 @@
                 {
                     "name": "EU: Madrid, Spain",
                     "url": "rtmp://live-mad.twitch.tv/app"
+                },
+                {
+                    "name": "EU: Marseille, FR",
+                    "url": "rtmp://live-mrs.twitch.tv/app"
                 },
                 {
                     "name": "EU: Milan, Italy",
@@ -98,7 +106,7 @@
                     "url": "rtmp://live-lim.twitch.tv/app"
                 },
                 {
-                    "name": "South America: Medellin, Columbia",
+                    "name": "South America: Medellin, Colombia",
                     "url": "rtmp://live-mde.twitch.tv/app"
                 },
                 {
@@ -627,12 +635,20 @@
                     "url": "rtmp://eu-ams.restream.io/live"
                 },
                 {
+                    "name": "EU-West (Luxembourg)",
+                    "url": "rtmp://eu-luxembourg.restream.io/live"
+                },
+                {
                     "name": "EU-Central (Frankfurt, DE)",
                     "url": "rtmp://eu-central.restream.io/live"
                 },
                 {
                     "name": "EU-East (Falkenstein, DE)",
                     "url": "rtmp://eu-east.restream.io/live"
+                },
+                {
+                    "name": "EU-South (Madrid, Spain)",
+                    "url": "rtmp://eu-madrid.restream.io/live"
                 },
                 {
                     "name": "Russia (Moscow)",
@@ -653,6 +669,10 @@
                 {
                     "name": "US-East (Washington, DC)",
                     "url": "rtmp://us-east.restream.io/live"
+                },
+                {
+                    "name": "US-East (Miami, FL)",
+                    "url": "rtmp://us-miami.restream.io/live"
                 },
                 {
                     "name": "NA-East (Toronto, Canada)",
@@ -1032,6 +1052,22 @@
                     "url": "rtmp://ingest-as-central.a.switchboard.zone/live"
                 }
             ]
+        },
+        {
+            "name": "Looch",
+            "common": false,
+            "servers": [
+                {
+                    "name": "Primary Looch ingest server",
+                    "url": "rtmp://ingest.looch.tv/live"
+                }
+            ],
+            "recommended": {
+                "keyint": 2,
+                "profile": "main",
+                "max video bitrate": 6000,
+                "max audio bitrate": 160
+            }
         }
     ]
 }
