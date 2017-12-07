@@ -41,6 +41,7 @@ struct obs_scene_item {
 	bool                  user_visible;
 	bool                  visible;
 	bool                  selected;
+	bool                  locked;
 
 	gs_texrender_t        *item_render;
 	struct obs_sceneitem_crop crop;
@@ -66,6 +67,8 @@ struct obs_scene_item {
 	struct vec2           bounds;
 
 	obs_hotkey_pair_id    toggle_visibility;
+
+	obs_data_t            *private_settings;
 
 	pthread_mutex_t       actions_mutex;
 	DARRAY(struct item_action) audio_actions;
