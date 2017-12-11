@@ -9,7 +9,7 @@
 #define OFF 0
 #endif
 
-#define OBS_VERSION "20.1.1-65-g2a37c69c-modified"
+#define OBS_VERSION "20.1.3-69-gced35a26"
 #define OBS_DATA_PATH "../../data"
 #define OBS_INSTALL_PREFIX ""
 #define OBS_PLUGIN_DESTINATION "obs-plugins/64bit"
