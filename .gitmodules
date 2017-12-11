@@ -1,3 +1,0 @@
-[submodule "scripts/build-obs/obs-studio"]
-	path = scripts/build-obs/obs-studio
-	url = https://github.com/stream-labs/obs-studio.git
